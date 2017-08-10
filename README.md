@@ -1,6 +1,6 @@
 An utility wrapper around Wire to easily set registry values over I2C.
 
-= Example
+# Example #
 ```
 #define address  0x00 //The address of the I2C device
 #define registry 0x00 //The register to manipulate
