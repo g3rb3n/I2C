@@ -21,12 +21,12 @@ namespace g3rb3n
   I2C::~I2C()
   {}
 
-  uint8_t I2C::address()
+  uint8_t I2C::address() const
   {
     return _address;
   }
   
-  void I2C::writeByte(uint8_t reg, uint8_t data)
+  void I2C::writeByte(uint8_t reg, uint8_t data) const
   {
     Wire.beginTransmission(_address);
     Wire.write(reg);
@@ -35,7 +35,7 @@ namespace g3rb3n
     delay(10);
   }
 
-  uint8_t I2C::readByte(uint8_t reg)
+  uint8_t I2C::readByte(uint8_t reg) const
   {
     uint8_t data; 
     Wire.beginTransmission(_address);
@@ -46,7 +46,7 @@ namespace g3rb3n
     return data;
   }
 
-  void I2C::readBytes(uint8_t reg, uint8_t count, uint8_t * dest)
+  void I2C::readBytes(uint8_t reg, uint8_t count, uint8_t * dest) const
   {  
     Wire.beginTransmission(_address);
     Wire.write(reg);
@@ -59,20 +59,20 @@ namespace g3rb3n
     }
   }
 
-  bool I2C::readMaskBit(uint8_t reg, uint8_t mask)
+  bool I2C::readMaskBit(uint8_t reg, uint8_t mask) const
   {
     uint8_t value = readByte(reg);
     return value & mask;  
   }
 
-  uint8_t I2C::readMaskShift(uint8_t reg, uint8_t mask, uint8_t shift)
+  uint8_t I2C::readMaskShift(uint8_t reg, uint8_t mask, uint8_t shift) const
   {
     uint8_t value = readByte(reg);
     value &= mask;
     return value >> shift;
   }
 
-  void I2C::writeMaskShiftValue(uint8_t reg, uint8_t mask, uint8_t shift, uint8_t value)
+  void I2C::writeMaskShiftValue(uint8_t reg, uint8_t mask, uint8_t shift, uint8_t value) const
   {
     uint8_t r = readByte(reg);
     r &= ~mask;
@@ -80,7 +80,7 @@ namespace g3rb3n
     writeByte(reg, r);
   }
 
-  void I2C::writeMaskClearSet(uint8_t reg, uint8_t mask)
+  void I2C::writeMaskClearSet(uint8_t reg, uint8_t mask) const
   {
     uint8_t value = readByte(reg);
     value &= ~mask;
@@ -88,14 +88,14 @@ namespace g3rb3n
     writeByte(reg, value);
   }
 
-  void I2C::writeMaskSet(uint8_t reg, uint8_t mask)
+  void I2C::writeMaskSet(uint8_t reg, uint8_t mask) const
   {
     uint8_t value = readByte(reg);
     value |= mask;
     writeByte(reg, value);
   }
 
-  void I2C::writeMaskClear(uint8_t reg, uint8_t mask)
+  void I2C::writeMaskClear(uint8_t reg, uint8_t mask) const
   {
     uint8_t value = readByte(reg);
     value &= ~mask;
