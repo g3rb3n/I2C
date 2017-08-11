@@ -12,11 +12,13 @@ namespace g3rb3n
     Wire.begin();
   }
 
+#ifdef TWO_WIRE_PINS
   I2C::I2C(uint8_t address, uint8_t sda, uint8_t scl):
     _address(address)
   {
     Wire.begin(sda, scl);
   }
+#endif
 
   I2C::~I2C()
   {}

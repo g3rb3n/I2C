@@ -4,6 +4,10 @@
 #include <Wire.h>
 #include <inttypes.h>
 
+#if !(ARDUINO >= 100)
+  #define TWO_WIRE_PINS
+#endif
+
 namespace g3rb3n
 {
 
@@ -14,7 +18,9 @@ namespace g3rb3n
 
     public:
       I2C(uint8_t address);
+#ifdef TWO_WIRE_PINS
       I2C(uint8_t address, uint8_t sda, uint8_t cls);
+#endif
       ~I2C();
 
       uint8_t address() const;

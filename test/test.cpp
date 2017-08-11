@@ -12,7 +12,10 @@ using namespace g3rb3n;
 uint8_t address = 0x68;
 uint8_t register_ = 0x1B;
 uint8_t WHO_AM_I = 0x75;
-uint8_t I_AM = 0x71;
+uint8_t I_AM_0 = 0x71;
+uint8_t I_AM_1 = 0x72;
+uint8_t I_AM_2 = 0x73;
+uint8_t I_AM_3 = 0x74;
 
 I2C i2c(address);
 
@@ -28,7 +31,8 @@ void testWriteRead(void)
 
 void testConnection(void)
 {
-  TEST_ASSERT_EQUAL(I_AM, i2c.readByte(WHO_AM_I));
+  uint8_t id = i2c.readByte(WHO_AM_I);
+  TEST_ASSERT_EQUAL(id == I_AM_0 || id == I_AM_1 || id == I_AM_2 || id == I_AM_3, true);
 }
 
 void testWriteReadMasked(void)
