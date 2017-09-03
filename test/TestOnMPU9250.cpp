@@ -7,6 +7,14 @@
 
 #ifdef UNIT_TEST
 
+#ifdef ARDUINO_ARCH_ESP8266
+  #define SDA D2
+  #define SCL D1
+#else
+  #define NO_PINS
+  #warning "No support for setting SDL and SDA pins"
+#endif
+
 using namespace g3rb3n;
 
 uint8_t address = 0x68;
@@ -17,7 +25,7 @@ uint8_t I_AM_1 = 0x72;
 uint8_t I_AM_2 = 0x73;
 uint8_t I_AM_3 = 0x74;
 
-I2C i2c(address);
+I2C i2c(address, D2, D1);
 
 void testWriteRead(void)
 {

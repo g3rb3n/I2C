@@ -2,17 +2,6 @@
 
 #include <Arduino.h>
 
-#undef TWO_WIRE_PINS
-
-#ifdef ARDUINO_ARCH_ESP8266
-  #define PINS_ON_BEGIN
-#elif ARDUINO_ARCH_AVR
-  #define PINS_ON_PROPERTIES
-#else
-  #define NO_PINS
-  #warning "No support for setting SDL and SDA pins"
-#endif
-
 namespace g3rb3n
 {
   
@@ -26,12 +15,12 @@ namespace g3rb3n
     _address(address)
   {
     #ifdef PINS_ON_PROPERTIES
-        Wire.scl_pin = scl;
-        Wire.sda_pin = sda;
-        Wire.begin();
+      Wire.scl_pin = scl;
+      Wire.sda_pin = sda;
+      Wire.begin();
     #endif
     #ifdef PINS_ON_BEGIN
-        Wire.begin(sda, scl);
+      Wire.begin(sda, scl);
     #endif
     #ifdef NO_PINS
       Wire.begin();

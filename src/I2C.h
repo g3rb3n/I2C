@@ -5,12 +5,8 @@
 
 #include <Wire.h>
 
-#undef TWO_WIRE_PINS
-
 #ifdef ARDUINO_ARCH_ESP8266
   #define PINS_ON_BEGIN
-#elif ARDUINO_ARCH_AVR
-  #define PINS_ON_PROPERTIES
 #else
   #warning "No support for setting SDA and SCL pins"
 #endif
