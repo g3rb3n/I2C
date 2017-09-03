@@ -1,7 +1,17 @@
 #include "I2C.h"
 
-#include <Wire.h>
 #include <Arduino.h>
+
+#undef TWO_WIRE_PINS
+
+#ifdef ARDUINO_ARCH_ESP8266
+  #define PINS_ON_BEGIN
+#elif ARDUINO_ARCH_AVR
+  #define PINS_ON_PROPERTIES
+#else
+  #define NO_PINS
+  #warning "No support for setting SDL and SDA pins"
+#endif
 
 namespace g3rb3n
 {
@@ -12,13 +22,21 @@ namespace g3rb3n
     Wire.begin();
   }
 
-#ifdef TWO_WIRE_PINS
   I2C::I2C(uint8_t address, uint8_t sda, uint8_t scl):
     _address(address)
   {
-    Wire.begin(sda, scl);
+    #ifdef PINS_ON_PROPERTIES
+        Wire.scl_pin = scl;
+        Wire.sda_pin = sda;
+        Wire.begin();
+    #endif
+    #ifdef PINS_ON_BEGIN
+        Wire.begin(scl, sda);
+    #endif
+    #ifdef NO_PINS
+      Wire.begin();
+    #endif
   }
-#endif
 
   I2C::~I2C()
   {}

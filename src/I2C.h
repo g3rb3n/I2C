@@ -1,11 +1,18 @@
 #ifndef _I2C_H
 #define _I2C_H
 
-#include <Wire.h>
 #include <inttypes.h>
 
-#if !(ARDUINO >= 100)
-  #define TWO_WIRE_PINS
+#include <Wire.h>
+
+#undef TWO_WIRE_PINS
+
+#ifdef ARDUINO_ARCH_ESP8266
+  #define PINS_ON_BEGIN
+#elif ARDUINO_ARCH_AVR
+  #define PINS_ON_PROPERTIES
+#else
+  #warning "No support for setting SDL and SDA pins"
 #endif
 
 namespace g3rb3n
@@ -18,9 +25,7 @@ namespace g3rb3n
 
     public:
       I2C(uint8_t address);
-#ifdef TWO_WIRE_PINS
       I2C(uint8_t address, uint8_t sda, uint8_t cls);
-#endif
       ~I2C();
 
       uint8_t address() const;
