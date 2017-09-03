@@ -31,7 +31,7 @@ namespace g3rb3n
         Wire.begin();
     #endif
     #ifdef PINS_ON_BEGIN
-        Wire.begin(scl, sda);
+        Wire.begin(sda, scl);
     #endif
     #ifdef NO_PINS
       Wire.begin();

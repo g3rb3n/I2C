@@ -12,7 +12,7 @@
 #elif ARDUINO_ARCH_AVR
   #define PINS_ON_PROPERTIES
 #else
-  #warning "No support for setting SDL and SDA pins"
+  #warning "No support for setting SDA and SCL pins"
 #endif
 
 namespace g3rb3n
@@ -25,7 +25,7 @@ namespace g3rb3n
 
     public:
       I2C(uint8_t address);
-      I2C(uint8_t address, uint8_t sda, uint8_t cls);
+      I2C(uint8_t address, uint8_t sda, uint8_t scl);
       ~I2C();
 
       uint8_t address() const;
